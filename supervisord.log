@@ -446,3 +446,40 @@
 2025-05-22 15:11:36,484 INFO spawned: 'queue-worker' with pid 29
 2025-05-22 15:11:36,503 WARN exited: queue-worker (exit status 1; not expected)
 2025-05-22 15:11:37,504 INFO gave up: queue-worker entered FATAL state, too many start retries too quickly
+2025-05-22 15:28:31,206 WARN received SIGQUIT indicating exit request
+2025-05-22 15:28:31,206 INFO waiting for php-fpm to die
+2025-05-22 15:28:32,227 INFO stopped: php-fpm (exit status 0)
+2025-05-22 15:29:48,062 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-22 15:29:48,067 INFO supervisord started with pid 1
+2025-05-22 15:29:49,068 INFO spawned: 'php-fpm' with pid 23
+2025-05-22 15:29:49,070 INFO spawned: 'queue-worker' with pid 24
+2025-05-22 15:29:49,088 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-22 15:29:50,137 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-22 15:29:50,139 INFO spawned: 'queue-worker' with pid 27
+2025-05-22 15:29:50,157 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-22 15:29:52,160 INFO spawned: 'queue-worker' with pid 28
+2025-05-22 15:29:52,177 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-22 15:29:55,180 INFO spawned: 'queue-worker' with pid 29
+2025-05-22 15:29:55,197 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-22 15:29:56,198 INFO gave up: queue-worker entered FATAL state, too many start retries too quickly
+2025-05-22 15:54:24,625 WARN received SIGQUIT indicating exit request
+2025-05-22 15:54:24,626 INFO waiting for php-fpm to die
+2025-05-22 15:54:25,646 INFO stopped: php-fpm (exit status 0)
+2025-05-22 16:00:05,809 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-22 16:00:05,827 INFO supervisord started with pid 1
+2025-05-22 16:00:06,829 INFO spawned: 'php-fpm' with pid 23
+2025-05-22 16:00:06,831 INFO spawned: 'queue-worker' with pid 24
+2025-05-22 16:00:06,852 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-22 16:00:07,941 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-22 16:00:07,942 INFO spawned: 'queue-worker' with pid 27
+2025-05-22 16:00:07,963 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-22 16:00:09,966 INFO spawned: 'queue-worker' with pid 28
+2025-05-22 16:00:09,987 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-22 16:00:12,990 INFO spawned: 'queue-worker' with pid 29
+2025-05-22 16:00:13,009 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-22 16:00:14,010 INFO gave up: queue-worker entered FATAL state, too many start retries too quickly
+2025-05-22 18:03:05,897 INFO reaped unknown pid 66 (exit status 0)
+2025-05-22 18:58:15,396 INFO reaped unknown pid 109 (exit status 0)
+2025-05-22 20:02:53,599 WARN received SIGQUIT indicating exit request
+2025-05-22 20:02:53,600 INFO waiting for php-fpm to die
+2025-05-22 20:02:54,624 INFO stopped: php-fpm (exit status 0)

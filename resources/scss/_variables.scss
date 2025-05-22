@@ -2,8 +2,11 @@
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 
+$quiz : #1E7DB3;
+
 // Define your custom colors map
 $custom-colors: (
+    "quiz":       $quiz,       // #1E7DB3
     "blue":       $blue,       // #0d6efd
     "indigo":     $indigo,     // #6610f2
     "purple":     $purple,     // #6f42c1
@@ -30,4 +33,16 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
     .text-#{$color-name} {
         color: $color-value !important;
     }
+}
+
+/* ensure the window fills the available screen height */
+html,
+body {
+    height: 100%;
+}
+
+/* center the children of body */
+body {
+    display: grid;
+    place-items: center;
 }

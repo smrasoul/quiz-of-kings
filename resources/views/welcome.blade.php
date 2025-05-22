@@ -1,27 +1,12 @@
+<x-layout>
+    <x-auth>
 
+        <x-page-heading>خوش آمدید!</x-page-heading>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
-    @vite(['resources/css/app.css','resources/js/app.js'])
-    <title>Home</title>
-</head>
-<body>
-<nav class="navbar bg-indigo">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="{{ asset('favicon.ico') }}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top
-            ">
-            <span class="text-white">Bootstrap</span>
-        </a>
-    </div>
-</nav>
+        <a href="/login" class="btn btn-success my-5 pb-3 fs-4 fw-bold">ورود به حساب کاربری</a>
 
-</body>
-</html>
+        <a href="/register" class="btn btn-warning pb-3 fs-4 fw-bold">ثبت نام</a>
 
+    </x-auth>
+</x-layout>
 
