@@ -1,0 +1,33 @@
+// Import Bootstrap’s functions and variables first
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+
+// Define your custom colors map
+$custom-colors: (
+    "blue":       $blue,       // #0d6efd
+    "indigo":     $indigo,     // #6610f2
+    "purple":     $purple,     // #6f42c1
+    "pink":       $pink,       // #d63384
+    "red":        $red,        // #dc3545
+    "orange":     $orange,     // #fd7e14
+    "yellow":     $yellow,     // #ffc107
+    "green":      $green,      // #198754
+    "teal":       $teal,       // #20c997
+    "cyan":       $cyan,       // #0dcaf0
+    "white":      $white,      // #ffffff
+    "gray":       $gray-600,   // #6c757d
+    "gray-dark":  $gray-800    // #343a40
+);
+
+// Merge custom colors with Bootstrap’s theme-colors to add new variants
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+// Optional: Generate additional utility classes (e.g., .bg-indigo, .text-purple)
+@each $color-name, $color-value in $custom-colors {
+    .bg-#{$color-name} {
+        background-color: $color-value !important;
+    }
+    .text-#{$color-name} {
+        color: $color-value !important;
+    }
+}

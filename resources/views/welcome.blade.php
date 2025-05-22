@@ -6,19 +6,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    @vite(['resources/css/app.css','resources/js/app.js'])
     <title>Home</title>
 </head>
 <body>
-<div class="container">
-    <div class="row my-4">
-        <div class="col-md-4 mx-auto">
-            <div class="btn btn-danger">
-                Hello There
-            </div>
-        </div>
+<nav class="navbar bg-indigo">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="{{ asset('favicon.ico') }}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top
+            ">
+            <span class="text-white">Bootstrap</span>
+        </a>
     </div>
-</div>
-@vite(['resources/js/app.js'])
+</nav>
+
 </body>
 </html>
 

@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+    # PHP Application
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: qok-app
+        restart: unless-stopped
+        volumes:
+            - ./:/var/www/html
+            - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+            - ./docker/supervisor/supervisord.conf:/etc/supervisor/supervisord.conf
+        networks:
+            - qok-network
+        depends_on:
+            - db
+
+    # Nginx Web Server
+    webserver:
+        image: nginx:alpine
+        container_name: qok-webserver
+        restart: unless-stopped
+        ports:
+            - "8080:8080"
+        volumes:
+            - ./:/var/www/html
+            # Use a single file mount instead of a directory
+            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+        networks:
+            - qok-network
+        depends_on:
+            - app
+
+    # MySQL Database
+    db:
+        image: mysql:8.0
+        container_name: qok-db
+        restart: unless-stopped
+        environment:
+            - MYSQL_DATABASE=${DB_DATABASE}
+            - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+            - MYSQL_PASSWORD=${DB_PASSWORD}
+            - MYSQL_USER=${DB_USERNAME}
+        volumes:
+            - qok-data:/var/lib/mysql
+        networks:
+            - qok-network
+        ports:
+            - "3306:3306"
+
+    # Redis for Cache and Queue
+    redis:
+        image: redis:alpine
+        container_name: qok-redis
+        restart: unless-stopped
+        networks:
+            - qok-network
+        ports:
+            - "6379:6379"
+
+# Networks
+networks:
+    qok-network:
+        driver: bridge
+
+# Volumes
+volumes:
+    qok-data:
+        driver: local
