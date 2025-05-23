@@ -1,6 +1,6 @@
 <ul class="nav justify-content-between py-2 px-0">
     <li class="nav-item">
-        <a class="btn btn-warning" href="/dashboard">ناحیه کاربری</a>
+        <x-link-button href="/dashboard" color="warning">ناحیه کاربری</x-link-button>
     </li>
     <li class="nav-item">
         <form method="POST" action="/logout">

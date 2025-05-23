@@ -483,3 +483,64 @@
 2025-05-22 20:02:53,599 WARN received SIGQUIT indicating exit request
 2025-05-22 20:02:53,600 INFO waiting for php-fpm to die
 2025-05-22 20:02:54,624 INFO stopped: php-fpm (exit status 0)
+2025-05-23 09:00:47,749 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-23 09:00:47,754 INFO supervisord started with pid 1
+2025-05-23 09:00:48,757 INFO spawned: 'php-fpm' with pid 23
+2025-05-23 09:00:48,759 INFO spawned: 'queue-worker' with pid 24
+2025-05-23 09:00:48,783 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-23 09:00:49,842 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-23 09:00:49,844 INFO spawned: 'queue-worker' with pid 27
+2025-05-23 09:00:49,896 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-23 09:00:51,901 INFO spawned: 'queue-worker' with pid 28
+2025-05-23 09:00:51,926 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-23 09:00:54,931 INFO spawned: 'queue-worker' with pid 29
+2025-05-23 09:00:54,949 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-23 09:00:55,950 INFO gave up: queue-worker entered FATAL state, too many start retries too quickly
+2025-05-23 10:02:39,597 WARN received SIGQUIT indicating exit request
+2025-05-23 10:02:39,598 INFO waiting for php-fpm to die
+2025-05-23 10:02:40,617 INFO stopped: php-fpm (exit status 0)
+2025-05-23 10:02:48,712 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-23 10:02:48,716 INFO supervisord started with pid 1
+2025-05-23 10:02:49,718 INFO spawned: 'php-fpm' with pid 23
+2025-05-23 10:02:49,720 INFO spawned: 'queue-worker' with pid 24
+2025-05-23 10:02:49,739 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-23 10:02:50,765 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-23 10:02:50,766 INFO spawned: 'queue-worker' with pid 27
+2025-05-23 10:02:50,789 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-23 10:02:53,253 INFO spawned: 'queue-worker' with pid 28
+2025-05-23 10:02:53,273 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-23 10:02:57,136 INFO spawned: 'queue-worker' with pid 29
+2025-05-23 10:02:57,155 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-23 10:02:57,721 INFO gave up: queue-worker entered FATAL state, too many start retries too quickly
+2025-05-23 12:09:13,403 WARN received SIGQUIT indicating exit request
+2025-05-23 12:09:13,404 INFO waiting for php-fpm to die
+2025-05-23 12:09:14,425 INFO stopped: php-fpm (exit status 0)
+2025-05-23 12:09:24,801 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-23 12:09:24,806 INFO supervisord started with pid 1
+2025-05-23 12:09:25,808 INFO spawned: 'php-fpm' with pid 23
+2025-05-23 12:09:25,809 INFO spawned: 'queue-worker' with pid 24
+2025-05-23 12:09:25,829 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-23 12:09:26,851 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-23 12:09:26,852 INFO spawned: 'queue-worker' with pid 27
+2025-05-23 12:09:26,871 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-23 12:09:28,874 INFO spawned: 'queue-worker' with pid 28
+2025-05-23 12:09:28,894 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-23 12:09:31,898 INFO spawned: 'queue-worker' with pid 29
+2025-05-23 12:09:31,918 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-23 12:09:32,919 INFO gave up: queue-worker entered FATAL state, too many start retries too quickly
+2025-05-23 12:21:55,651 WARN received SIGQUIT indicating exit request
+2025-05-23 12:21:55,652 INFO waiting for php-fpm to die
+2025-05-23 12:21:56,673 INFO stopped: php-fpm (exit status 0)
+2025-05-23 12:26:18,679 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-23 12:26:18,683 INFO supervisord started with pid 1
+2025-05-23 12:26:19,685 INFO spawned: 'php-fpm' with pid 23
+2025-05-23 12:26:19,686 INFO spawned: 'queue-worker' with pid 24
+2025-05-23 12:26:19,705 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-23 12:26:20,759 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-23 12:26:20,760 INFO spawned: 'queue-worker' with pid 27
+2025-05-23 12:26:20,779 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-23 12:26:22,781 INFO spawned: 'queue-worker' with pid 28
+2025-05-23 12:26:22,799 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-23 12:26:25,804 INFO spawned: 'queue-worker' with pid 29
+2025-05-23 12:26:25,822 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-23 12:26:26,823 INFO gave up: queue-worker entered FATAL state, too many start retries too quickly

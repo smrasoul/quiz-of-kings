@@ -3,9 +3,9 @@
 
         <x-page-heading>خوش آمدید!</x-page-heading>
 
-        <a href="/login" class="btn btn-success my-5 pb-3 fs-4 fw-bold">ورود به حساب کاربری</a>
+        <x-link-button href="/login" color="success" class="my-5 pb-3 fs-4 fw-bold">ورود به حساب کاربری</x-link-button>
 
-        <a href="/register" class="btn btn-warning pb-3 fs-4 fw-bold">ثبت نام</a>
+        <x-link-button href="/register" color="warning" class="pb-3 fs-4 fw-bold">ثبت نام</x-link-button>
 
     </x-auth>
 </x-layout>

@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
+use App\Models\Question;
+use App\Models\QuestionOption;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,9 +18,27 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        User::updateOrCreate(
+            ['email' => 'admin@yahoo.com'], // Unique identifier
+            [
+                'id' => 1,
+                'name' => 'admin',
+                'password' => bcrypt('admin'),
+            ]
+        );
+
+        Category::factory(5)->create()->each(function ($category) {
+            $category->questions()->saveMany(Question::factory(10)->make())
+                ->each(function ($question) {
+                    // Generate 4 options
+                    $options = QuestionOption::factory(4)->make();
+
+                    // Randomly select one option and mark it as correct
+                    $options->random()->is_correct = true;
+
+                    // Save options
+                    $question->questionOptions()->saveMany($options);
+                });
+        });
     }
 }
