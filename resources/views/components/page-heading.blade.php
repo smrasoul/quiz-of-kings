@@ -1,2 +1,2 @@
-<h1 class="mb-5"> {{$slot}} </h1>
+<h1  {{ $attributes->merge(['class' => 'mb-5']) }}> {{$slot}} </h1>
 

@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('matchmaking_queue', function (Blueprint $table) {
+        Schema::create('round_participants', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('round_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->timestamp('joined_at');
+            $table->boolean('completed')->default(false);
+            $table->timestamp('completed_at')->nullable();
             $table->timestamps();
         });
+
     }
 
     /**
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('matchmaking_queue');
+        Schema::dropIfExists('round_participants');
     }
 };

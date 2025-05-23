@@ -1,14 +1,14 @@
 <x-layout>
 
-    <x-auth>
+    <x-center>
 
         <x-page-heading>ورود به حساب کاربری</x-page-heading>
 
-        <x-forms.form method="POST" Action="/login">
+        <x-forms.form class="w-25" method="POST" Action="/login">
             <x-forms.input label="ایمیل" name="email" type="email"/>
             <x-forms.input label="رمز عبور" name="password" type="password"/>
 
-            <x-forms.button>ورود</x-forms.button>
+            <x-forms.button color="warning" class="w-50">ورود</x-forms.button>
         </x-forms.form>
 
         <div class="mt-3">
@@ -16,7 +16,7 @@
             <a class="link-warning" href="/register">ثبت نام</a>
         </div>
 
-    </x-auth>
+    </x-center>
 
 
 

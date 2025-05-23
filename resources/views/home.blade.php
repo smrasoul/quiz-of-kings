@@ -1,24 +1,22 @@
 <x-layout>
-        <x-nav/>
-        <div class="bg-quiz text-center">
-            
+    <x-nav/>
 
+    <x-center>
 
+        <x-large-link-button href="/play" color="success" class="mt-5">شروع بازی</x-large-link-button>
 
+        <div>test test test</div>
+        <div>test test test</div>
+        <div>test test test</div>
+        <div>test test test</div>
+        <div>test test test</div>
+        <div>test test test</div>
+        <div>test test test</div>
+        <div>test test test</div>
+        <div>test test test</div>
+        <div>test test test</div>
 
-            <input type="radio" class="btn-check" name="options-outlined" id="success-outlined" autocomplete="off" disabled>
-            <label class="btn btn-success" for="success-outlined">Danger radio</label>
+    </x-center>
 
-            <div>test test test</div>
-            <div>test test test</div>
-            <div>test test test</div>
-            <div>test test test</div>
-            <div>test test test</div>
-            <div>test test test</div>
-            <div>test test test</div>
-            <div>test test test</div>
-            <div>test test test</div>
-            <div>test test test</div>
-        </div>
 </x-layout>
 
