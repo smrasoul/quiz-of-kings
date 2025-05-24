@@ -24,7 +24,16 @@ class DatabaseSeeder extends Seeder
                 'id' => 1,
                 'name' => 'admin',
                 'password' => bcrypt('admin'),
-            ]
+            ],
+        );
+
+        User::updateOrCreate(
+            ['email' => 'rasoul@yahoo.com'], // Unique identifier
+            [
+                'id' => 2,
+                'name' => 'rasoul',
+                'password' => bcrypt('rasoul'),
+            ],
         );
 
         Category::factory(5)->create()->each(function ($category) {

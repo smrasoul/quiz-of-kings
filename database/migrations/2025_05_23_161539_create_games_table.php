@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('game_matches', function (Blueprint $table) {
+        Schema::create('games', function (Blueprint $table) {
             $table->id();
             $table->foreignId('player_one_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('player_two_id')->constrained('users')->cascadeOnDelete();
+            $table->unsignedBigInteger('current_turn')->nullable(); // stores user_id
             $table->foreignId('winner_id')->nullable()->constrained('users')->nullOnDelete();
-            $table->enum('status', ['pending', 'in_progress', 'completed'])->default('pending');
+            $table->enum('status', ['in_progress', 'completed'])->default('in_progress');
+
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('game_matches');
+        Schema::dropIfExists('games');
     }
 };

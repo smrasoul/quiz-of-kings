@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Category;
+use App\Models\Game;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,9 +15,8 @@ return new class extends Migration
     {
         Schema::create('rounds', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('game_match_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('chosen_by')->constrained('users'); // The one who chose the category
-            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Game::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Category::class)->nullable()->constrained()->cascadeOnDelete();
             $table->unsignedTinyInteger('round_number'); // 1 to 5, for example
             $table->enum('status', ['not_started', 'in_progress', 'completed'])->default('not_started');
             $table->timestamp('started_at')->nullable();
