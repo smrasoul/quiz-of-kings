@@ -19,18 +19,16 @@ class GameController extends Controller
     //or be redirected to /game/{game} (show method)
     public function index(){
 
-        $user = Auth::user();
+        $user = Auth::id();
 
         $queued = MatchmakingQueue::where('user_id', $user )->first();
-
         $game = Game::where(function ($query) {
             $query->where('player_one_id', Auth::id())
                 ->orWhere('player_two_id', Auth::id());
         })->where('status', '!=', 'completed')->first();
 
 
-        return view('games.index', ['queued' => $queued,
-            'game' => $game]);
+        return view('games.index', compact('game', 'queued'));
     }
 
 
@@ -48,6 +46,7 @@ class GameController extends Controller
     //shows the overall progress of a game
     //if it's the players turn, they're redirected to /game/{game}/round/{round} to choose a category.
     public function show(Game $game){
+
 
         $round = Round::where('game_id', $game->id)->latest()->first();
 

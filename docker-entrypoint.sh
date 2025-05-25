@@ -32,5 +32,20 @@ if [ "$DB_HOST" != "" ]; then
     php artisan migrate --seed
 fi
 
+#to solve the laravel.log problem
+mkdir -p /var/www/html/storage/logs
+touch /var/www/html/storage/logs/laravel.log
+chown www-data:www-data /var/www/html/storage/logs/laravel.log
+chmod 775 /var/www/html/storage/logs/laravel.log
+
+# Run migrations and seed database if the container is starting fresh
+echo "Running database migrations and seeding..."
+php artisan migrate:fresh --seed
+
+#to solve the manifest problem
+echo "Building frontend assets..."
+npm install
+npm run build
+
 # Execute the provided command (which is typically php-fpm)
 exec "$@"
