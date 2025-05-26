@@ -10,6 +10,8 @@ services:
         restart: unless-stopped
         volumes:
             - ./:/var/www/html
+            - /var/www/html/vendor
+            - /var/www/html/node_modules
             - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
             - ./docker/supervisor/supervisord.conf:/etc/supervisor/supervisord.conf
             - ./storage/logs:/var/www/html/storage/logs
