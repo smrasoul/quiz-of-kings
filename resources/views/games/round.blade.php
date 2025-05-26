@@ -1,4 +1,4 @@
-@props(['game', 'round', '$categories'])
+@props(['randomCategories'])
 
 <x-layout>
     <x-nav/>
@@ -9,11 +9,17 @@
 
         <x-forms.form method="POST">
 
-        @foreach($categories as $category)
-                <x-forms.radio name="category" :variable="$category" color="outline-white" :label="$category->name" />
-        @endforeach
+            @foreach($randomCategories as $randomCategory)
+                <x-forms.radio :label="$randomCategory->category->name" name="category_id"
+                               :value="$randomCategory->category_id" color="outline-white"/>
+            @endforeach
 
-            <x-forms.button color="success">شروع بازی</x-forms.button>
+                @error('category_id')
+                    <div class="form-text text-warning">{{ $message }}</div>
+                @enderror
+
+
+                <x-forms.button color="success">شروع بازی</x-forms.button>
 
         </x-forms.form>
 

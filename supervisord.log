@@ -691,3 +691,57 @@
 2025-05-26 11:56:29,619 INFO spawned: 'queue-worker' with pid 22
 2025-05-26 11:56:30,657 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2025-05-26 11:56:30,658 INFO success: queue-worker entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 12:58:23,791 INFO exited: queue-worker (exit status 0; expected)
+2025-05-26 12:58:24,794 INFO spawned: 'queue-worker' with pid 42
+2025-05-26 12:58:25,795 INFO success: queue-worker entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 13:25:06,920 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-26 13:25:06,925 INFO supervisord started with pid 1
+2025-05-26 13:25:07,927 INFO spawned: 'php-fpm' with pid 21
+2025-05-26 13:25:07,929 INFO spawned: 'queue-worker' with pid 22
+2025-05-26 13:25:09,003 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 13:25:09,003 INFO success: queue-worker entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 14:26:42,897 INFO exited: queue-worker (exit status 0; expected)
+2025-05-26 14:26:43,900 INFO spawned: 'queue-worker' with pid 29
+2025-05-26 14:26:44,902 INFO success: queue-worker entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 15:28:28,789 INFO exited: queue-worker (exit status 0; expected)
+2025-05-26 15:28:29,792 INFO spawned: 'queue-worker' with pid 42
+2025-05-26 15:28:30,794 INFO success: queue-worker entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 16:29:59,548 INFO exited: queue-worker (exit status 0; expected)
+2025-05-26 16:30:00,552 INFO spawned: 'queue-worker' with pid 47
+2025-05-26 16:30:01,554 INFO success: queue-worker entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 17:30:32,841 INFO exited: queue-worker (exit status 0; expected)
+2025-05-26 17:30:33,843 INFO spawned: 'queue-worker' with pid 58
+2025-05-26 17:30:34,844 INFO success: queue-worker entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 17:52:44,605 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-26 17:52:45,608 INFO spawned: 'queue-worker' with pid 67
+2025-05-26 17:52:46,610 INFO success: queue-worker entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 17:53:22,052 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-26 17:53:23,054 INFO spawned: 'queue-worker' with pid 74
+2025-05-26 17:53:24,253 INFO success: queue-worker entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 17:53:56,838 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-26 17:53:57,841 INFO spawned: 'queue-worker' with pid 81
+2025-05-26 17:53:58,842 INFO success: queue-worker entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 17:55:22,894 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-26 17:55:23,899 INFO spawned: 'queue-worker' with pid 90
+2025-05-26 17:55:25,106 INFO success: queue-worker entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 17:56:18,632 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-26 17:56:19,635 INFO spawned: 'queue-worker' with pid 97
+2025-05-26 17:56:20,636 INFO success: queue-worker entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 17:58:30,373 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-26 17:58:31,377 INFO spawned: 'queue-worker' with pid 106
+2025-05-26 17:58:32,378 INFO success: queue-worker entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 18:58:57,038 INFO exited: queue-worker (exit status 0; expected)
+2025-05-26 18:58:58,040 INFO spawned: 'queue-worker' with pid 113
+2025-05-26 18:58:59,042 INFO success: queue-worker entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 19:59:22,960 INFO exited: queue-worker (exit status 0; expected)
+2025-05-26 19:59:23,962 INFO spawned: 'queue-worker' with pid 119
+2025-05-26 19:59:24,964 INFO success: queue-worker entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 20:59:44,483 INFO exited: queue-worker (exit status 0; expected)
+2025-05-26 20:59:45,487 INFO spawned: 'queue-worker' with pid 125
+2025-05-26 20:59:46,488 INFO success: queue-worker entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 22:00:03,611 INFO exited: queue-worker (exit status 0; expected)
+2025-05-26 22:00:04,614 INFO spawned: 'queue-worker' with pid 131
+2025-05-26 22:00:05,615 INFO success: queue-worker entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 22:02:11,624 WARN exited: queue-worker (exit status 1; not expected)
+2025-05-26 22:02:12,626 INFO spawned: 'queue-worker' with pid 138
+2025-05-26 22:02:13,628 INFO success: queue-worker entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)

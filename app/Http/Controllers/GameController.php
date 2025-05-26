@@ -6,10 +6,12 @@ use App\Models\Category;
 use App\Models\Game;
 use App\Models\MatchmakingQueue;
 use App\Models\Question;
+use App\Models\RandomCategories;
 use App\Models\Round;
 use App\Models\RoundAnswer;
 use Illuminate\Support\Facades\Auth;
 use App\Models\RoundQuestion;
+use function PHPUnit\Framework\isNull;
 
 class GameController extends Controller
 {
@@ -21,14 +23,13 @@ class GameController extends Controller
 
         $user = Auth::id();
 
-        $queued = MatchmakingQueue::where('user_id', $user )->first();
-        $game = Game::where(function ($query) {
+        $games = Game::where(function ($query) {
             $query->where('player_one_id', Auth::id())
                 ->orWhere('player_two_id', Auth::id());
-        })->where('status', '!=', 'completed')->first();
+        })->where('status', '!=', 'completed')->get();
 
 
-        return view('games.index', compact('game', 'queued'));
+        return view('games.index', compact('games'));
     }
 
 
@@ -48,39 +49,79 @@ class GameController extends Controller
     public function show(Game $game){
 
 
-        $round = Round::where('game_id', $game->id)->latest()->first();
+        $rounds = Round::where('game_id', $game->id)->get();
 
         $userId = Auth::id();
 
-        return view('games.show',
-            [
-            'game' => $game,
-            'round' => $round,
-            'userId' => $userId
-            ]
-        );
+        return view('games.show', compact('game', 'rounds', 'userId'));
+
     }
 
-    public function selectCategory(Game $game, Round $round)
+    public function createRoundQuestion(Game $game, Round $round)
     {
+        if($round->category_id !== null){
+            return redirect('/game/'.$game->id.'/round/'.$round->id.'/question');
+        }
 
-//        if($round->category){
-//
-//        }
+        $randomCategories = RandomCategories::with('category')
+            ->where('round_id', $round->id)
+            ->get();
 
-        $categories = Category::inRandomOrder()->limit(3)->get();
+        if ($randomCategories->isEmpty()) {
 
-        return view('games.round', ['game' => $game,
-            'round' => $round,
-            'categories' => $categories]);
+            //Get category_ids already used in the rounds table
+            $alreadyUsedCategoryIds = Round::whereNotNull('category_id')
+                ->pluck('category_id')
+                ->unique(); // optional, but safe
+
+            //Exclude those from the new random selection
+            $categories = Category::whereNotIn('id', $alreadyUsedCategoryIds)
+                ->inRandomOrder()
+                ->limit(3)
+                ->get();
+
+
+            foreach ($categories as $category) {
+                RandomCategories::create([
+                    'round_id' => $round->id,
+                    'category_id' => $category->id,
+                ]);
+            }
+
+            // Re-fetch with eager-loaded category relationship
+            $randomCategories = RandomCategories::with('category')
+                ->where('round_id', $round->id)->get();
+        }
+
+
+
+        return view('games.round', compact('randomCategories'));
     }
 
-    public function storeCategory(Game $game, Round $round)
+    public function storeRoundQuestion(Game $game, Round $round)
     {
+
+        if($round->category_id !== null){
+            return redirect('/game/'.$game->id.'/round/'.$round->id.'/question');
+        }
+
         //validate the selected category
         $category_id = request()->validate([
             'category_id' => ['required', 'integer', 'exists:categories,id']
         ])['category_id'];
+
+
+        //Check for cheating in supplying wrong category ID
+        $randomCategories = RandomCategories::with('category')
+            ->where('round_id', $round->id)->get();
+
+        $existsInRound = $randomCategories->contains('category_id', $category_id);
+
+        if(!$existsInRound){
+            abort(403, 'stop cheating dude.');
+        }
+
+
 
         //update the category of the current round
         $round->update(['category_id' => $category_id]);
@@ -100,33 +141,102 @@ class GameController extends Controller
             ]);
         }
 
-        //flip the turns.
-        $game->current_turn = $game->player_one_id === $game->current_turn
-            ? $game->player_two_id
-            : $game->player_one_id;
-        $game->save();
-
-        return redirect("/game/$game->id/round/$round->id/question/1");
+        return redirect('/game/'.$game->id.'/round/'.$round->id.'/question');
 
     }
 
-    public function showQuestion(Game $game, Round $round, int $order)
+    public function showQuestion(Game $game, Round $round)
     {
-        $roundQuestions = $round->roundQuestions()->where('order', $order)->firstOrFail();
 
-        $question = $roundQuestions->question;
+        $answersCount = RoundAnswer::where('round_id', $round->id)
+            ->where('user_id', Auth::id())->count();
+
+        if($answersCount > 2) {
+            return redirect('/game/'.$game->id);
+        }
+
+        $question = $round->roundQuestions()
+            ->where('order', $answersCount + 1)
+            ->firstOrFail()
+            ->question;
 
         $questionOptions = $question->questionOptions()->get();
 
         return view('games.question',
-            compact('question', 'order', 'questionOptions'));
+            compact('question', 'questionOptions'));
     }
 
-    public function storeQuestion(Game $game, Round $round, int $order)
+    public function storeQuestion(Game $game, Round $round)
     {
+
         $roundAnswer = request()->validate([
-            'selected_option_id' => ['required', 'integer', 'exists:question_options,id']
+            'selected_option_id' => ['required', 'integer']
+        ])['selected_option_id'];
+
+        $answersCount = RoundAnswer::where('round_id', $round->id)
+            ->where('user_id', Auth::id())->count();
+
+        $question = $round->roundQuestions()
+            ->where('order', $answersCount + 1)
+            ->firstOrFail()
+            ->question;
+
+        $isCorrect = $question->questionOptions
+            ->findOrFail($roundAnswer)
+            ->is_correct;
+
+        RoundAnswer::create([
+
+            'round_id' => $round->id,
+            'question_id' => $question->id,
+            'user_id' => Auth::id(),
+            'selected_option_id' => $roundAnswer,
+            'is_correct' => $isCorrect,
+            'answered_at' => now(),
+
         ]);
+
+        //flip the turns.
+
+        $currentRoundNumber = $round->round_number; // or whatever field stores this
+
+        if (($currentRoundNumber % 2 === 1 && $game->current_turn === $game->player_one_id) ||
+            ($currentRoundNumber % 2 === 0 && $game->current_turn === $game->player_two_id)) {
+
+            $game->current_turn = $game->player_one_id === $game->current_turn
+                ? $game->player_two_id
+                : $game->player_one_id;
+
+            $game->save();
+        }
+
+        if (RoundAnswer::where('round_id', $round->id)->count() === 6) {
+            $round->update([
+                'status' => 1
+            ]);
+        }
+
+        if (RoundAnswer::where('round_id', $round->id)->count() === 6 &&
+            Round::where('game_id', $game->id)->count() < 4) {
+
+            Round::create([
+                'game_id' => $game->id,
+                'round_number' => $round->round_number + 1,
+                'started_at' => now()
+            ]);
+
+        } //elseif(RoundAnswer::where('round_id', $round->id)->count() === 6 &&
+        //         Round::where('game_id', $game->id)->count() = 4)
+        {
+
+            //mark the game as completed
+
+            //Show the winner
+
+        }
+
+
+        return redirect("/game/$game->id/round/$round->id/question");
 
     }
 

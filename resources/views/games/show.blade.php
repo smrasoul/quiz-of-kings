@@ -1,45 +1,55 @@
-@props(['game', 'round', 'userId'])
+@props(['game', 'rounds', 'userId'])
 
 
 <x-layout>
 
     <x-nav/>
 
-    <table class="table table-striped text-center">
+    <table class="table table-striped text-center mt-5">
         <thead>
         <tr>
+            <th> راند </th>
             <th>{{$game->playerOne->name}}</th>
             <th>دسته‌بندی</th>
             <th>{{$game->playerTwo->name}}</th>
+            <th>وضعیت</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>O X O</td>
-            <td>VS</td>
-            <td>O O X</td>
-        </tr>
-        <tr>
-            <td>X O X</td>
-            <td>VS</td>
-            <td>O X O</td>
-        </tr>
-        <tr>
-            <td>O O O</td>
-            <td>VS</td>
-            <td>X X O</td>
-        </tr>
+        @foreach($rounds as $round)
+            <tr>
+                <th scope="row"> {{ $round->round_number }} </th>
+                <td> پاسخ های پلیر اول</td>
+                <td> {{ $round->category->name ?? "انتخاب نشده" }} </td>
+                <td> پاسخ های پلیر دوم</td>
+                <td>
+
+                    @if(!$round->status && $game->current_turn === $userId)
+                        <x-small-link-button href="/game/{{$game->id}}/round/{{$round->id}}" color="success">بازی کن</x-small-link-button>
+                    @elseif(!$round->status && $game->current_turn !== $userId)
+                        <x-small-link-button href="{{ request()->url() }}" color="cyan">نوبت حریف</x-small-link-button>
+                    @else
+                        تمام شده
+                    @endif
+
+                </td>
+            </tr>
+        @endforeach
         </tbody>
     </table>
 
+    @if(empty($round->category) && $game->current_turn === $userId )
+
+    @endif
+
+ {{--
+
     <div class="text-center">
         @if($game->current_turn === $userId)
-            <x-large-link-button href="/game/{{$game->id}}/round/{{$round->id}}" color="success">بازی کن</x-large-link-button>
-        @else
-            <x-large-link-button href="{{ request()->url() }}" color="cyan">نوبت حریف</x-large-link-button>
-        @endif
 
     </div>
+
+ --}}
 
 
 </x-layout>

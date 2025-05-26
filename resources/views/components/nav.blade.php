@@ -4,7 +4,7 @@
         <li class="nav-item">
             <x-small-link-button href="/dashboard" color="warning" class="fw-bold">ناحیه کاربری</x-small-link-button>
         </li>
-    @if(request()->is('home'))
+    @if(request()->is('/'))
         <li class="nav-item">
             <form method="POST" action="/logout">
                 @csrf
@@ -14,7 +14,7 @@
         </li>
     @else
         <li class="nav-item">
-            <x-small-link-button href="/home" color="warning">صفحه اصلی</x-small-link-button>
+            <x-small-link-button href="/" color="warning">صفحه اصلی</x-small-link-button>
         </li>
     @endif
 
