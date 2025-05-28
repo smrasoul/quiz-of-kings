@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\RoundController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterUserController;
@@ -17,12 +19,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/game/{game}', [GameController::class, 'show'])
     ->can('access', 'game');
 
-    Route::get('/game/{game}/round/{round}', [GameController::class, 'createRoundQuestion']);
+    Route::get('/game/{game}/round/{round}', [RoundController::class, 'create']);
+    Route::post('/game/{game}/round/{round}', [RoundController::class, 'store']);
 
-    Route::post('/game/{game}/round/{round}', [GameController::class, 'storeRoundQuestion']);
+    Route::get("/game/{game}/round/{round}/question",[QuestionController::class, 'show']);
+    Route::post('/game/{game}/round/{round}/question', [QuestionController::class, 'store']);
 
-    Route::get("/game/{game}/round/{round}/question",[GameController::class, 'showQuestion']);
-    Route::post('/game/{game}/round/{round}/question', [GameController::class, 'storeQuestion']);
+    Route::get('/game/{game}/round/{round}/update', [GameController::class, 'update']);
 });
 
 

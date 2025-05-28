@@ -21,7 +21,6 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignId('selected_option_id')->nullable()->constrained('question_options')->nullOnDelete();
             $table->boolean('is_correct')->default(false);
-            $table->timestamp('answered_at')->nullable();
             $table->timestamps();
         });
 

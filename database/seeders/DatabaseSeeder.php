@@ -67,8 +67,7 @@ class DatabaseSeeder extends Seeder
                 'id' => 1,
                 'game_id' => 1,
                 'round_number' => 1,
-                'status' => 0,
-                'started_at' => now()
+                'status' => 0
             ]
         );
     }
