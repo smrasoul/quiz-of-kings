@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Game::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Category::class)->nullable()->constrained()->cascadeOnDelete();
-            $table->unsignedTinyInteger('round_number')->unique(); // 1 to 5, for example
+            $table->unsignedTinyInteger('round_number');
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

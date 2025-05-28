@@ -9,6 +9,7 @@ use App\Models\Question;
 use App\Models\RandomCategories;
 use App\Models\Round;
 use App\Models\RoundAnswer;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Models\RoundQuestion;
 use function PHPUnit\Framework\isNull;
@@ -16,23 +17,22 @@ use function PHPUnit\Framework\isNull;
 class GameController extends Controller
 {
 
-    //check if the player is already in a game or queue
-    //player can post a form to be added to the queue (queue method)
-    //or be redirected to /game/{game} (show method)
-    public function index()
-    {
+    public function index(){
 
-        $user = Auth::id();
+        $userId = Auth::id();
 
-        $games = Game::where(function ($query) {
-            $query->where('player_one_id', Auth::id())
-                ->orWhere('player_two_id', Auth::id());
-        })->where('status', '!=', 'completed')->get();
+        $completedGames = Game::with(['playerOne:id,name', 'playerTwo:id,name'])
+            //Game::with(['playerOne', 'playerTwo'])
+            ->where('status', '=', 1)
+            ->where(function ($query) use ($userId) {
+                $query->where('player_one_id', $userId)
+                    ->orWhere('player_two_id', $userId);
+            })
+            ->get();
 
+        return view('games.index', compact('completedGames', 'userId'));
 
-        return view('games.index', compact('games'));
     }
-
 
     //adds the player to the queue
     public function queue()
