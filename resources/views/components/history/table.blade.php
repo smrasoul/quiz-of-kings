@@ -17,7 +17,7 @@
                 </thead>
                 <tbody>
                     @foreach($games as $game)
-                        <x-game-table-row :game="$game" :user-id="$userId">
+                        <x-history.table-row :game="$game" :user-id="$userId">
 
                             @if($game->winner_id === $userId)
                                 <p class="text-success fw-bold m-0">برنده</p>
@@ -25,7 +25,7 @@
                                 <p class="text-danger fw-bold m-0">بازنده</p>
                             @endif
 
-                        </x-game-table-row>
+                        </x-history.table-row>
                     @endforeach
                 </tbody>
             </table>

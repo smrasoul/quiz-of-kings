@@ -9,10 +9,10 @@
         <x-page-heading class="">بازی‌ها</x-page-heading>
     </div>
 
-    <x-game-table :games="$completedGames" :userId="$userId">
+    <x-history.table :games="$completedGames" :userId="$userId">
         <div class="col-8">
             <h5>بازی‌های اخیر</h5>
         </div>
-    </x-game-table>
+    </x-history.table>
 
 </x-layout>

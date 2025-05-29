@@ -19,13 +19,13 @@
         {{-- start the matchmaking --}}
     @endif
 
-    <x-game-table :games="$completedGames" :userId="$userId">
+    <x-history.table :games="$completedGames" :userId="$userId">
         <div class="col-4">
             <h5>بازی‌های اخیر</h5>
         </div>
         <div class="col-4 d-flex justify-content-end">
             <x-small-link-button href="/games" color="warning">تاریخچه‌ی بازی‌ها</x-small-link-button>
         </div>
-    </x-game-table>
+    </x-history.table>
 
 </x-layout>

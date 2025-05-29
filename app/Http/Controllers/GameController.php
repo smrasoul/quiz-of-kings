@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+
 use App\Models\Game;
 use App\Models\MatchmakingQueue;
-use App\Models\Question;
-use App\Models\RandomCategories;
 use App\Models\Round;
 use App\Models\RoundAnswer;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use App\Models\RoundQuestion;
-use function PHPUnit\Framework\isNull;
+
 
 class GameController extends Controller
 {
@@ -52,7 +48,17 @@ class GameController extends Controller
     {
 
 
-        $rounds = Round::where('game_id', $game->id)->get();
+        $rounds = Round::where('game_id', $game->id)
+            ->with([
+                'roundAnswers.question',  // Ensures questions are preloaded
+                'roundAnswers.option', // Preload question options
+//                'roundAnswers.user',  // Eager-load the user (instead of multiple queries)
+                'category',  // Preload category to avoid separate queries
+            ])
+            ->get();
+
+
+
 
         $userId = Auth::id();
 
@@ -60,70 +66,6 @@ class GameController extends Controller
 
     }
 
-
-    public function update(Game $game, Round $round)
-    {
-
-        //update the round status
-        if (RoundAnswer::where('round_id', $round->id)
-                ->whereNotnull('selected_option_id')
-                ->count() === 6) {
-            $round->update([
-                'status' => 1
-            ]);
-        }
-
-        //create a new round
-        if (RoundAnswer::where('round_id', $round->id)
-                ->whereNotnull('selected_option_id')
-                ->count() === 6 &&
-            Round::where('game_id', $game->id)->count() < 4) {
-
-            Round::updateOrcreate([
-                'game_id' => $game->id,
-                'round_number' => $round->round_number + 1
-            ]);
-
-        } elseif (RoundAnswer::where('round_id', $round->id)
-                ->whereNotnull('selected_option_id')
-                ->count() === 6 &&
-            Round::where('game_id', $game->id)->count() === 4) {
-
-            $roundIds = $game->rounds()->pluck('id');
-
-            $answers = RoundAnswer::whereIn('round_id', $roundIds)
-                ->whereNotNull('is_correct')
-                ->get()
-                ->groupBy('user_id')
-                ->map(fn($group) => $group->where('is_correct', true)->count());
-
-            $scores = $answers->all(); // [user_id => correct_count]
-            arsort($scores);
-
-            $ids = array_keys($scores);
-            $values = array_values($scores);
-
-            if ($values[0] === $values[1]) {
-
-                $game->update([
-                    'winner_id' => 0,
-                    'status' => 'completed'
-                ]);
-
-            }
-
-            $game->update([
-                'winner_id' => $ids[0],
-                'status' => 'completed'
-            ]);
-
-            $game->update([
-                'status' => 'completed'
-            ]);
-        }
-
-        return redirect("/game/$game->id/round/$round->id/question");
-    }
 
 
 }

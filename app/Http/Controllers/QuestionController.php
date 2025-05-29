@@ -19,7 +19,7 @@ class QuestionController extends Controller
             ->count();
 
         if($answersCount > 2) {
-            return redirect('/game/'.$game->id);
+            return redirect("/game/$game->id/round/$round->id/status");
         }
 
         $question = $round->roundQuestions()
@@ -55,7 +55,8 @@ class QuestionController extends Controller
 
 
         $answersCount = RoundAnswer::where('round_id', $round->id)
-            ->where('user_id', Auth::id())->count();
+            ->where('user_id', Auth::id())
+            ->count();
 
         $question = $round->roundQuestions()
             ->where('order', $answersCount)
@@ -77,24 +78,9 @@ class QuestionController extends Controller
                 'selected_option_id' => $selectedOptionId,
                 'is_correct' => $isCorrect,
             ]);
-        }else{
-            return redirect("/game/$game->id/round/$round->id/update");
         }
 
-        //flip the turns.
-        $currentRoundNumber = $round->round_number; // or whatever field stores this
-
-        if (($currentRoundNumber % 2 === 1 && $game->current_turn === $game->player_one_id) ||
-            ($currentRoundNumber % 2 === 0 && $game->current_turn === $game->player_two_id)) {
-
-            $game->current_turn = $game->player_one_id === $game->current_turn
-                ? $game->player_two_id
-                : $game->player_one_id;
-
-            $game->save();
-        }
-
-        return redirect("/game/$game->id/round/$round->id/update");
+        return redirect("/game/$game->id/round/$round->id/question");
 
     }
 }

@@ -7,7 +7,9 @@ use App\Models\Game;
 use App\Models\Question;
 use App\Models\RandomCategories;
 use App\Models\Round;
+use App\Models\RoundAnswer;
 use App\Models\RoundQuestion;
+use Illuminate\Support\Facades\Auth;
 
 class RoundController extends Controller
 {
@@ -97,6 +99,88 @@ class RoundController extends Controller
         }
 
         return redirect('/game/'.$game->id.'/round/'.$round->id.'/question');
+
+    }
+
+    public function show (Game $game, Round $round)
+    {
+        $userId = Auth::id();
+
+        $roundAnswers = RoundAnswer::where('user_id', $userId)
+            ->where('round_id', $round->id)
+            ->with(['question', 'option'])
+            ->get();
+
+
+        return view('games.status', compact('game','roundAnswers', 'round', 'userId'));
+    }
+
+    public function update(Game $game, Round $round)
+    {
+        if ($round->status) {
+            return redirect("/game/$game->id");
+        }
+
+        //logic to flip the turn
+        $currentRoundNumber = $round->round_number; // or whatever field stores this
+
+        if (
+            //if round is odd and turn is player1
+            ($currentRoundNumber % 2 === 1 && $game->current_turn === $game->player_one_id) ||
+
+            //if round is even and turn is player2
+            ($currentRoundNumber % 2 === 0 && $game->current_turn === $game->player_two_id)
+
+        ) {
+
+            //flips the turn from 1 to 2 or from 2 to 1
+            $game->current_turn = $game->player_one_id === $game->current_turn
+                ? $game->player_two_id
+                : $game->player_one_id;
+
+            $game->save();
+        }
+        $completed = RoundAnswer::where('round_id', $round->id)
+                ->whereNotNull('selected_option_id')
+                ->count() === 6;
+
+        if ($completed) {
+            // Mark the round as completed
+            $round->update(['status' => 1]);
+
+            $roundCount = Round::where('game_id', $game->id)->count();
+
+            if ($roundCount < 4) {
+                // Create the next round
+                Round::updateOrCreate([
+                    'game_id' => $game->id,
+                    'round_number' => $round->round_number + 1
+                ]);
+            } elseif ($roundCount === 4) {
+                // Finalize the game
+                $roundIds = $game->rounds()->pluck('id');
+
+                $scores = RoundAnswer::whereIn('round_id', $roundIds)
+                    ->whereNotNull('is_correct')
+                    ->get()
+                    ->groupBy('user_id')
+                    ->map(fn($answers) => $answers->where('is_correct', true)->count())
+                    ->all();
+
+                arsort($scores);
+                $ids = array_keys($scores);
+                $values = array_values($scores);
+
+                $winnerId = $values[0] === $values[1] ? 0 : $ids[0];
+
+                $game->update([
+                    'winner_id' => $winnerId,
+                    'status' => '1'
+                ]);
+            }
+        }
+
+        return redirect('/game/' . $game->id);
 
     }
 }
