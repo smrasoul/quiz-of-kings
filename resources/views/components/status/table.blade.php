@@ -1,6 +1,6 @@
 @props(['game', 'roundAnswers', 'round', 'userId'])
 
-<div class="row mt-5 pt-5">
+<div class="row mt-4 pt-5">
     <div class="row my-2 justify-content-center">
         {{ $slot }}
     </div>

@@ -4,12 +4,6 @@
 
     <x-center>
 
-        <x-page-heading>
-
-            <span>سوال</span>
-
-        </x-page-heading>
-
         <div> {{ $question->text }} </div>
             <x-forms.form method="POST">
 

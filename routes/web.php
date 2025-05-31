@@ -3,6 +3,7 @@
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\QueueController;
 use App\Http\Controllers\RoundController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
@@ -15,14 +16,17 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/', [HomeController::class, 'index']);
 
+    Route::get('/test', [QueueController::class, 'test']);
 
     Route::get('/games', [GameController::class, 'index']);
     Route::get('/game/{game}', [GameController::class, 'show'])
         ->can('access', 'game');
 
-    Route::get('/game/{game}/round/{round}', [RoundController::class, 'create']);
+    Route::get('/game/{game}/round/{round}', [RoundController::class, 'create'])
+        ->can('access', 'game');
     Route::post('/game/{game}/round/{round}', [RoundController::class, 'store']);
-    Route::get('/game/{game}/round/{round}/status', [RoundController::class, 'show']);
+    Route::get('/game/{game}/round/{round}/status', [RoundController::class, 'show'])
+        ->can('access', 'game');
     Route::post('/game/{game}/round/{round}/status', [RoundController::class, 'update']);
 
     Route::get("/game/{game}/round/{round}/question",[QuestionController::class, 'show']);

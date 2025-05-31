@@ -12,10 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('matchmaking_queues', function (Blueprint $table) {
+        Schema::create('game_queues', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
-            $table->timestamp('joined_at')->useCurrent();
+            $table->timestamp('queued_at')->useCurrent();
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('matchmaking_queues');
+        Schema::dropIfExists('game_queues');
     }
 };

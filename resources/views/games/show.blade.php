@@ -32,9 +32,11 @@
                 <th scope="row" class="align-content-center"> {{ $round->round_number }} </th>
                 <td class="align-content-center">
                     @foreach($playerOneAnswers as $playerOneAnswer)
-                        @if($playerOneAnswer && $playerOneAnswer->is_correct)
+                        @if($playerOneAnswer->selected_option_id === null)
+
+                        @elseif($playerOneAnswer->is_correct)
                             <i class="bi bi-check-lg fs-3 text-success"></i>
-                        @elseif($playerOneAnswer && !$playerOneAnswer->is_correct)
+                        @elseif(!$playerOneAnswer->is_correct)
                             <i class="bi bi-x fs-2 text-danger"></i>
                         @else
 
@@ -45,9 +47,11 @@
                 <td class="align-content-center">
 
                     @foreach($playerTwoAnswers as $playerTwoAnswer)
-                        @if($playerTwoAnswer && $playerTwoAnswer->is_correct)
+                        @if($playerTwoAnswer->selected_option_id === null)
+
+                        @elseif($playerTwoAnswer->is_correct)
                             <i class="bi bi-check-lg fs-3 text-success"></i>
-                        @elseif($playerTwoAnswer && !$playerTwoAnswer->is_correct)
+                        @elseif(!$playerTwoAnswer->is_correct)
                             <i class="bi bi-x fs-2 text-danger"></i>
                         @else
 

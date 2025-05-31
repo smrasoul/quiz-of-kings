@@ -114,6 +114,7 @@ class DatabaseSeeder extends Seeder
                     foreach (range(1,2) as $userId){
                         RoundAnswer::factory()->create([
                             'round_id' => $roundId,
+                            'game_id' => $id,
                             'question_id' => 1,
                             'user_id' => $userId,
                             'selected_option_id' => rand(1,4),

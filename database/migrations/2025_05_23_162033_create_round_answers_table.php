@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Game;
 use App\Models\Question;
 use App\Models\Round;
 use App\Models\User;
@@ -16,6 +17,7 @@ return new class extends Migration
     {
         Schema::create('round_answers', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Game::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Round::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Question::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();

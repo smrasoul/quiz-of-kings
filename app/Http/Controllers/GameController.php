@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Game;
-use App\Models\MatchmakingQueue;
+use App\Models\GameQueue;
 use App\Models\Round;
 use App\Models\RoundAnswer;
 use Illuminate\Support\Facades\Auth;
@@ -27,18 +27,6 @@ class GameController extends Controller
             ->get();
 
         return view('games.index', compact('completedGames', 'userId'));
-
-    }
-
-    //adds the player to the queue
-    public function queue()
-    {
-
-        MatchmakingQueue::create([
-            'user_id' => Auth::user()->id,
-        ]);
-
-        return redirect('/games');
 
     }
 

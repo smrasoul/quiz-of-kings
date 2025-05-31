@@ -2,10 +2,21 @@
 
 <x-layout>
 
+    <x-nav/>
+
     <x-status.table :game="$game" :roundAnswers="$roundAnswers" :round="$round" :userId="$userId">
-        <div class="col-8">
+        <div class="col-4">
             <h5>خلاصه‌ی راند</h5>
         </div>
+        @if($game->status)
+        <div class="col-4" dir="ltr">
+            <x-small-link-button href="/game/{{ $game->id }}" color="warning">بازگشت</x-small-link-button>
+        </div>
+        @else
+            <div class="col-4">
+
+            </div>
+        @endif
     </x-status.table>
 
     <div class="text-center">

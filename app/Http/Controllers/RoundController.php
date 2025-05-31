@@ -108,8 +108,13 @@ class RoundController extends Controller
 
         $roundAnswers = RoundAnswer::where('user_id', $userId)
             ->where('round_id', $round->id)
+            ->where('game_id', $game->id)
             ->with(['question', 'option'])
             ->get();
+
+        if($roundAnswers->isEmpty()){
+            return redirect("game/$game->id");
+        }
 
 
         return view('games.status', compact('game','roundAnswers', 'round', 'userId'));

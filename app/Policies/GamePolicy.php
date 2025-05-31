@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Game;
+use App\Models\GameQueue;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
@@ -13,6 +14,12 @@ class GamePolicy
     {
         return $game->player_one_id === $user->id || $game->player_two_id === $user->id;
     }
+
+    public function queue(User $user): bool
+    {
+        return !GameQueue::where('user_id', $user->id)->exists();
+    }
+
 
     /**
      * Determine whether the user can view any models.

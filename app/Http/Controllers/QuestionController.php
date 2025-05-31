@@ -12,6 +12,10 @@ class QuestionController extends Controller
     public function show(Game $game, Round $round)
     {
 
+        if($game->status){
+            return redirect("/");
+        }
+
 
         $answersCount = RoundAnswer::where('round_id', $round->id)
             ->where('user_id', Auth::id())
@@ -36,6 +40,7 @@ class QuestionController extends Controller
 
         if (!$latestAnswer || $latestAnswer->selected_option_id !== null) {
             $round->roundAnswers()->create([
+                'game_id' => $game->id,
                 'question_id' => $question->id,
                 'user_id' => Auth::id(),
             ]);

@@ -2,7 +2,7 @@
 
 
         <li class="nav-item">
-            <x-small-link-button href="/dashboard" color="warning" class="fw-bold">ناحیه کاربری</x-small-link-button>
+            <x-small-link-button href="/#" color="warning" class="fw-bold">ناحیه کاربری</x-small-link-button>
         </li>
     @if(request()->is('/'))
         <li class="nav-item">

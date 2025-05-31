@@ -16,7 +16,7 @@
             @endforeach
         </div>
     @else
-        {{-- start the matchmaking --}}
+        <x-large-link-button href="/game/create">بازی جدید</x-large-link-button>
     @endif
 
     <x-history.table :games="$completedGames" :userId="$userId">
