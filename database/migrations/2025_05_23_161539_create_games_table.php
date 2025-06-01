@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('player_two_id')->constrained('users')->cascadeOnDelete();
             $table->unsignedBigInteger('current_turn')->nullable(); // stores user_id
             $table->foreignId('winner_id')->nullable()->constrained('users')->nullOnDelete();
-            $table->boolean('status')->default(0);
+            $table->string('status');
             $table->unsignedBigInteger('last_activity');
             $table->timestamps();
         });

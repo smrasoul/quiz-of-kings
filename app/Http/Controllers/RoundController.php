@@ -180,7 +180,7 @@ class RoundController extends Controller
 
                 $game->update([
                     'winner_id' => $winnerId,
-                    'status' => '1'
+                    'status' => 'completed'
                 ]);
             }
         }

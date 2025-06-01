@@ -17,7 +17,7 @@ class HomeController extends Controller
 
         $games = Game::with(['playerOne:id,name', 'playerTwo:id,name'])
             //Game::with(['playerOne', 'playerTwo'])
-            ->where('status', '=', 0)
+            ->where('status', '=', 'pending')
             ->where(function ($query) use ($userId) {
                 $query->where('player_one_id', $userId)
                     ->orWhere('player_two_id', $userId);
@@ -27,7 +27,7 @@ class HomeController extends Controller
             ->get();
 
         $completedGames = Game::with(['playerOne:id,name', 'playerTwo:id,name'])
-            ->where('status', '=', 1)
+            ->where('status', '=', 'completed')
             ->where(function ($query) use ($userId) {
                 $query->where('player_one_id', $userId)
                     ->orWhere('player_two_id', $userId);

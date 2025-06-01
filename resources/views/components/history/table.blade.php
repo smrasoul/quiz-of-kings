@@ -1,6 +1,6 @@
 @props(['games', 'userId'])
 
-<div class="row mt-5 pt-5">
+<div class="row mt-1">
     <div class="row my-2 justify-content-center">
         {{ $slot }}
     </div>
@@ -16,7 +16,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                    @foreach($games as $game)
+
+                @foreach($games as $game)
+
                         <x-history.table-row :game="$game" :user-id="$userId">
 
                             @if($game->winner_id === $userId)
@@ -26,9 +28,15 @@
                             @endif
 
                         </x-history.table-row>
-                    @endforeach
+                @endforeach
                 </tbody>
             </table>
+
+            @if($games->isEmpty())
+                <p class="fst-italic">سابقه‌ای یافت نشد.</p>
+
+            @endif
+
         </div>
     </div>
 </div>

@@ -82,9 +82,9 @@
 
 
     <div class="d-flex justify-content-center">
-        @if($game->status && $game->winner_id === Auth::id())
+        @if($game->status == 'completed' && $game->winner_id === Auth::id())
             <h2 class="text-bg-warning text-success p-3 rounded" >برنده شدی!</h2>
-        @elseif($game->status && $game->winner_id !== Auth::id())
+        @elseif($game->status == 'completed' && $game->winner_id !== Auth::id())
             <h2 class="text-bg-warning text-danger p-3 rounded" >باختی!</h2>
         @endif
     </div>

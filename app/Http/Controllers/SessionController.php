@@ -30,7 +30,7 @@ class SessionController extends Controller
 
         if(! Auth::attempt($attributes)){
             throw ValidationException::withMessages([
-                'email' => ['The provided credentials do not match.'],
+                'email' => ['اطلاعات وارد شده غلط میباشد.'],
             ]);
         }
 

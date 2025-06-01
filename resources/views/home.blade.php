@@ -9,14 +9,16 @@
         <x-page-heading class="">Quiz of Kings</x-page-heading>
     </div>
 
-    @if($games)
+    @if($games->isNotEmpty())
         <div class="row d-flex justify-content-evenly">
             @foreach($games as $game)
                 <x-game-card :game="$game"/>
             @endforeach
         </div>
     @else
-        <x-large-link-button href="/game/create">بازی جدید</x-large-link-button>
+        <div class="text-center">
+            <x-large-link-button color="success" href="/game/create">بازی جدید</x-large-link-button>
+        </div>
     @endif
 
     <x-history.table :games="$completedGames" :userId="$userId">

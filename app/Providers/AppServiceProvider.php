@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
-use App\Models\Round;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
-use Route;
+use Illuminate\Support\Facades\App;
+
 
 class AppServiceProvider extends ServiceProvider
 {

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\Status;
 use App\Models\Category;
 use App\Models\Game;
 use App\Models\Question;
@@ -43,6 +44,24 @@ class DatabaseSeeder extends Seeder
             ],
         );
 
+        //two random users with no games
+        User::updateOrCreate(
+            ['email' => 'test1@yahoo.com'], // Unique identifier
+            [
+                'id' => 3,
+                'name' => 'test1',
+                'password' => bcrypt('test1'),
+            ],
+        );
+        User::updateOrCreate(
+            ['email' => 'test2@yahoo.com'], // Unique identifier
+            [
+                'id' => 4,
+                'name' => 'test2',
+                'password' => bcrypt('test2'),
+            ],
+        );
+
         //random categories with questions and options
         Category::factory(10)->create()->each(function ($category) {
             $category->questions()->saveMany(Question::factory(6)->make())
@@ -65,6 +84,7 @@ class DatabaseSeeder extends Seeder
                 'player_one_id' => 1,
                 'player_two_id' => 2,
                 'current_turn' => 1,
+                'status' => Status::PENDING,
                 'last_activity' => now()->timestamp
             ]
         );
@@ -74,7 +94,7 @@ class DatabaseSeeder extends Seeder
                 'id' => 1,
                 'game_id' => 1,
                 'round_number' => 1,
-                'status' => 0
+                'status' => Status::PENDING
             ]
         );
 
@@ -87,7 +107,7 @@ class DatabaseSeeder extends Seeder
                     'player_two_id' => 2,
                     'current_turn' => 2,
                     'winner_id' => rand(1, 2),
-                    'status' => 1,
+                    'status' => Status::COMPLETED,
                     'last_activity' => rand(1708406196, 1748436196)
                 ]
             );
@@ -101,7 +121,7 @@ class DatabaseSeeder extends Seeder
                         'game_id' => $id,
                         'category_id' => rand(1, 10),
                         'round_number' => $roundNumber,
-                        'status' => 1
+                        'status' => Status::COMPLETED
                     ]
                 );
 

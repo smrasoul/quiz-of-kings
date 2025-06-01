@@ -15,4 +15,8 @@
         </div>
     </x-history.table>
 
+    <x-center dir="ltr">
+        {{ $completedGames->links('vendor.pagination.simple-bootstrap-5') }}
+    </x-center>
+
 </x-layout>

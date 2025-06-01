@@ -19,6 +19,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/test', [QueueController::class, 'test']);
 
     Route::get('/games', [GameController::class, 'index']);
+    Route::get('/game/create', [GameController::class, 'create']);
+    Route::post('/game', [GameController::class, 'store']);
     Route::get('/game/{game}', [GameController::class, 'show'])
         ->can('access', 'game');
 
