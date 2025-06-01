@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Status;
 use App\Models\Game;
 use App\Models\Round;
 use App\Models\RoundAnswer;
@@ -12,7 +13,7 @@ class QuestionController extends Controller
     public function show(Game $game, Round $round)
     {
 
-        if($game->status){
+        if($game->status === Status::COMPLETED){
             return redirect("/");
         }
 

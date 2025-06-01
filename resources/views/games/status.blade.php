@@ -8,7 +8,7 @@
         <div class="col-4">
             <h5>خلاصه‌ی راند</h5>
         </div>
-        @if($game->status)
+        @if($game->status->value == "completed")
         <div class="col-4" dir="ltr">
             <x-small-link-button href="/game/{{ $game->id }}" color="warning">بازگشت</x-small-link-button>
         </div>
@@ -20,11 +20,12 @@
     </x-status.table>
 
     <div class="text-center">
-        @if(!$round->status)
+        @if($round->status->value == "pending")
+
             <x-forms.form method="POST">
-                <x-forms.button color="success">ادامه</x-forms.button>
+                <x-forms.button color="success">ثبت پاسخ ها</x-forms.button>
             </x-forms.form>
-        @else
+        @elseif($round->status->value == "completed")
             <x-large-link-button href="/game/{{ $game->id }}" color="success">بازگشت به بازی</x-large-link-button>
         @endif
     </div>

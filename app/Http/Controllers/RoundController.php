@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Status;
 use App\Models\Category;
 use App\Models\Game;
 use App\Models\Question;
@@ -122,7 +123,7 @@ class RoundController extends Controller
 
     public function update(Game $game, Round $round)
     {
-        if ($round->status) {
+        if ($round->status === Status::COMPLETED) {
             return redirect("/game/$game->id");
         }
 
@@ -146,12 +147,13 @@ class RoundController extends Controller
             $game->save();
         }
         $completed = RoundAnswer::where('round_id', $round->id)
+                ->where('game_id', $game->id)
                 ->whereNotNull('selected_option_id')
-                ->count() === 6;
+                ->count();
 
-        if ($completed) {
+        if ($completed === 6) {
             // Mark the round as completed
-            $round->update(['status' => 1]);
+            $round->update(['status' => Status::COMPLETED]);
 
             $roundCount = Round::where('game_id', $game->id)->count();
 
@@ -159,7 +161,8 @@ class RoundController extends Controller
                 // Create the next round
                 Round::updateOrCreate([
                     'game_id' => $game->id,
-                    'round_number' => $round->round_number + 1
+                    'round_number' => $round->round_number + 1,
+                    'status' => Status::COMPLETED,
                 ]);
             } elseif ($roundCount === 4) {
                 // Finalize the game
@@ -180,7 +183,7 @@ class RoundController extends Controller
 
                 $game->update([
                     'winner_id' => $winnerId,
-                    'status' => 'completed'
+                    'status' => Status::COMPLETED
                 ]);
             }
         }
