@@ -24,11 +24,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/game/{game}', [GameController::class, 'show'])
         ->can('access', 'game');
 
-    Route::get('/game/{game}/round/{round}', [RoundController::class, 'create'])
-        ->can('access', 'game');
+    Route::get('/game/{game}/round/{round}', [RoundController::class, 'create']);
     Route::post('/game/{game}/round/{round}', [RoundController::class, 'store']);
-    Route::get('/game/{game}/round/{round}/status', [RoundController::class, 'show'])
-        ->can('access', 'game');
+    Route::get('/game/{game}/round/{round}/status', [RoundController::class, 'show']);
     Route::post('/game/{game}/round/{round}/status', [RoundController::class, 'update']);
 
     Route::get("/game/{game}/round/{round}/question",[QuestionController::class, 'show']);

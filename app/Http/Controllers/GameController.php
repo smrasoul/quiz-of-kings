@@ -89,8 +89,8 @@ class GameController extends Controller
         $userId = Auth::id();
         if($player){
             $game = Game::create([
-                'player_one_id' => $player->user_id,
-                'player_two_id' => $userId,
+                'player_one_id' => $userId,
+                'player_two_id' => $player->user_id,
                 'current_turn' => 1,
                 'last_activity' => now()->timestamp,
                 'status' => Status::PENDING

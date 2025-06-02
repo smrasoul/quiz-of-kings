@@ -162,13 +162,12 @@ class RoundController extends Controller
                 Round::updateOrCreate([
                     'game_id' => $game->id,
                     'round_number' => $round->round_number + 1,
-                    'status' => Status::COMPLETED,
+                    'status' => Status::PENDING,
                 ]);
             } elseif ($roundCount === 4) {
-                // Finalize the game
-                $roundIds = $game->rounds()->pluck('id');
 
-                $scores = RoundAnswer::whereIn('round_id', $roundIds)
+                // Finalize the game
+                $scores = RoundAnswer::where('round_id', $round->id)
                     ->whereNotNull('is_correct')
                     ->get()
                     ->groupBy('user_id')

@@ -31,36 +31,39 @@
             <tr>
                 <th scope="row" class="align-content-center"> {{ $round->round_number }} </th>
                 <td class="align-content-center">
-                    @foreach($playerOneAnswers as $playerOneAnswer)
-                        @if($playerOneAnswer->selected_option_id === null)
+                    @if($round->status->value === "completed")
+                        @foreach($playerOneAnswers as $playerOneAnswer)
+                            @if($playerOneAnswer->selected_option_id === null)
 
-                        @elseif($playerOneAnswer->is_correct)
-                            <i class="bi bi-check-lg fs-3 text-success"></i>
-                        @elseif(!$playerOneAnswer->is_correct)
-                            <i class="bi bi-x fs-2 text-danger"></i>
-                        @else
+                            @elseif($playerOneAnswer->is_correct)
+                                <i class="bi bi-check-lg fs-3 text-success"></i>
+                            @elseif(!$playerOneAnswer->is_correct)
+                                <i class="bi bi-x fs-2 text-danger"></i>
+                            @else
 
-                        @endif
-                    @endforeach
+                            @endif
+                        @endforeach
+                    @endif
                 </td>
                 <td class="align-content-center"> {{ $round->category->name ?? "انتخاب نشده" }} </td>
                 <td class="align-content-center">
+                    @if($round->status->value === "completed")
+                        @foreach($playerTwoAnswers as $playerTwoAnswer)
+                            @if($playerTwoAnswer->selected_option_id === null)
 
-                    @foreach($playerTwoAnswers as $playerTwoAnswer)
-                        @if($playerTwoAnswer->selected_option_id === null)
+                            @elseif($playerTwoAnswer->is_correct)
+                                <i class="bi bi-check-lg fs-3 text-success"></i>
+                            @elseif(!$playerTwoAnswer->is_correct)
+                                <i class="bi bi-x fs-2 text-danger"></i>
+                            @else
 
-                        @elseif($playerTwoAnswer->is_correct)
-                            <i class="bi bi-check-lg fs-3 text-success"></i>
-                        @elseif(!$playerTwoAnswer->is_correct)
-                            <i class="bi bi-x fs-2 text-danger"></i>
-                        @else
-
-                        @endif
-                    @endforeach
+                            @endif
+                        @endforeach
+                    @endif
 
                 </td>
                 <td class="align-content-center">
-                    @if($game->staus === 'completed')
+                    @if($round->status->value === 'completed')
                         <x-small-link-button color="warning" href="/game/{{ $game->id }}/round/{{ $round->id }}/status">مشاهده</x-small-link-button>
                     @else
                         @if($game->current_turn === $userId )
@@ -83,9 +86,9 @@
 
 
     <div class="d-flex justify-content-center">
-        @if($game->status == 'completed' && $game->winner_id === Auth::id())
+        @if($game->status->value == 'completed' && $game->winner_id === Auth::id())
             <h2 class="text-bg-warning text-success p-3 rounded" >برنده شدی!</h2>
-        @elseif($game->status == 'completed' && $game->winner_id !== Auth::id())
+        @elseif($game->status->value == 'completed' && $game->winner_id !== Auth::id())
             <h2 class="text-bg-warning text-danger p-3 rounded" >باختی!</h2>
         @endif
     </div>
