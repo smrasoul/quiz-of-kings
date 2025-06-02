@@ -47,9 +47,6 @@ class GameController extends Controller
             ])
             ->get();
 
-
-
-
         $userId = Auth::id();
 
         return view('games.show', compact('game', 'rounds', 'userId'));
@@ -60,24 +57,8 @@ class GameController extends Controller
 
         $userId = Auth::id();
 
-        $game = Game::with(['playerOne:id,name', 'playerTwo:id,name'])
-            //Game::with(['playerOne', 'playerTwo'])
-            ->where('status', '=', Status::PENDING)
-            ->where(function ($query) use ($userId) {
-                $query->where('player_one_id', $userId)
-                    ->orWhere('player_two_id', $userId);
-            })
-            ->latest()
-            ->first();
-
-        if($game){
-            return redirect("/game/$game->id");
-        }
-
         $queue = GameQueue::where('user_id', $userId)
             ->latest()->get();
-
-
 
         return view('games.create', compact('queue'));
     }

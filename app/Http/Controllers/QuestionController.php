@@ -14,19 +14,9 @@ class QuestionController extends Controller
     public function show(Game $game, Round $round)
     {
 
-        if($game->status === Status::COMPLETED){
-            return redirect("/");
-        }
-
-
         $answersCount = RoundAnswer::where('round_id', $round->id)
             ->where('user_id', Auth::id())
-            ->whereNotNull('selected_option_id')
             ->count();
-
-        if($answersCount > 2) {
-            return redirect("/game/$game->id/round/$round->id/status");
-        }
 
         $question = $round->roundQuestions()
             ->where('order', $answersCount + 1)

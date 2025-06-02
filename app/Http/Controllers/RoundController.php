@@ -16,9 +16,6 @@ class RoundController extends Controller
 {
     public function create(Game $game, Round $round)
     {
-        if($round->category_id !== null){
-            return redirect('/game/'.$game->id.'/round/'.$round->id.'/question');
-        }
 
         $randomCategories = RandomCategories::with('category')
             ->where('round_id', $round->id)
@@ -58,10 +55,6 @@ class RoundController extends Controller
 
     public function store(Game $game, Round $round)
     {
-
-        if($round->category_id !== null){
-            return redirect('/game/'.$game->id.'/round/'.$round->id.'/question');
-        }
 
         //validate the selected category
         $category_id = request()->validate([
@@ -110,12 +103,9 @@ class RoundController extends Controller
         $roundAnswers = RoundAnswer::where('user_id', $userId)
             ->where('round_id', $round->id)
             ->where('game_id', $game->id)
+            ->whereNotNull('selected_option_id')
             ->with(['question', 'option'])
             ->get();
-
-        if($roundAnswers->isEmpty()){
-            return redirect("game/$game->id");
-        }
 
 
         return view('games.status', compact('game','roundAnswers', 'round', 'userId'));
@@ -123,9 +113,6 @@ class RoundController extends Controller
 
     public function update(Game $game, Round $round)
     {
-        if ($round->status === Status::COMPLETED) {
-            return redirect("/game/$game->id");
-        }
 
         //logic to flip the turn
         $currentRoundNumber = $round->round_number; // or whatever field stores this

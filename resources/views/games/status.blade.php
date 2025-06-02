@@ -18,12 +18,12 @@
     </x-status.table>
 
     <div class="text-center">
-        @if($round->status->value == "pending")
+        @if($round->status->value == "pending" && $roundAnswers->count() < 3)
 
             <x-forms.form method="POST">
                 <x-forms.button color="success">ثبت پاسخ ها</x-forms.button>
             </x-forms.form>
-        @elseif($round->status->value == "completed")
+        @else
             <x-large-link-button href="/game/{{ $game->id }}" color="success">بازگشت به بازی</x-large-link-button>
         @endif
     </div>
