@@ -21,8 +21,10 @@
 
                         <x-history.table-row :game="$game" :user-id="$userId">
 
-                            @if($game->winner_id === $userId)
-                                <p class="text-success fw-bold m-0">برنده</p>
+                            @if($game->winner_id === 0)
+                                <p class="text-secondary fw-bold m-0">مساوی</p>
+                            @elseif($game->winner_id === $userId)
+                                    <p class="text-success fw-bold m-0">برنده</p>
                             @else
                                 <p class="text-danger fw-bold m-0">بازنده</p>
                             @endif

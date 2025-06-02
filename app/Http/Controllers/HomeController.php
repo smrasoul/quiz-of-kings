@@ -32,7 +32,7 @@ class HomeController extends Controller
                 $query->where('player_one_id', $userId)
                     ->orWhere('player_two_id', $userId);
             })
-            ->latest() // Orders by created_at descending
+            ->orderBy('last_activity', 'desc') // Sorting by date (newest first)
             ->take(2)  // Limits to 2 results
             ->get();
 

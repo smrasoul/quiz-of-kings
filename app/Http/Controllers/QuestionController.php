@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Status;
+use App\Jobs\UpdateRoundAnswer;
 use App\Models\Game;
 use App\Models\Round;
 use App\Models\RoundAnswer;
@@ -79,7 +80,13 @@ class QuestionController extends Controller
             ->latest()
             ->firstOrFail();
 
-        if($roundAnswer->selected_option_id === null){
+        if ($roundAnswer->selected_option_id === null) {
+
+//            //using jobs
+//            UpdateRoundAnswer::dispatch($roundAnswer, $selectedOptionId, $isCorrect);
+//            sleep(1);
+
+            //without jobs
             $roundAnswer->update([
                 'selected_option_id' => $selectedOptionId,
                 'is_correct' => $isCorrect,
