@@ -72,7 +72,7 @@ class GameController extends Controller
             $game = Game::create([
                 'player_one_id' => $userId,
                 'player_two_id' => $player->user_id,
-                'current_turn' => 1,
+                'current_turn' => $userId,
                 'last_activity' => now()->timestamp,
                 'status' => Status::PENDING
             ]);

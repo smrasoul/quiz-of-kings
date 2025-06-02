@@ -18,7 +18,7 @@
     </x-status.table>
 
     <div class="text-center">
-        @if($round->status->value == "pending" && $roundAnswers->count() < 3)
+        @if($round->status->value == "pending" && $roundAnswers->count() === 3)
 
             <x-forms.form method="POST">
                 <x-forms.button color="success">ثبت پاسخ ها</x-forms.button>
