@@ -16,6 +16,7 @@ class QuestionController extends Controller
 
         $answersCount = RoundAnswer::where('round_id', $round->id)
             ->where('user_id', Auth::id())
+            ->whereNotNull('selected_option_id')
             ->count();
 
         $question = $round->roundQuestions()
@@ -59,6 +60,7 @@ class QuestionController extends Controller
             ->where('order', $answersCount)
             ->firstOrFail()
             ->question;
+
 
         $isCorrect = $question->questionOptions
             ->findOrFail($selectedOptionId)

@@ -3,7 +3,6 @@
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\QuestionController;
-use App\Http\Controllers\QueueController;
 use App\Http\Controllers\RoundController;
 use App\Http\Controllers\SessionController;
 use App\Http\Middleware\NoQuestionsIfAnswered;
