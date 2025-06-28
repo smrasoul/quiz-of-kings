@@ -55,12 +55,7 @@ class GameController extends Controller
 
     public function create(){
 
-        $userId = Auth::id();
-
-        $queue = GameQueue::where('user_id', $userId)
-            ->latest()->get();
-
-        return view('games.create', compact('queue'));
+        return view('games.create');
     }
 
     public function store()

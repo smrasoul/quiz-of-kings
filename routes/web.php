@@ -3,7 +3,6 @@
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\QuestionController;
-use App\Http\Controllers\QueueController;
 use App\Http\Controllers\RoundController;
 use App\Http\Controllers\SessionController;
 use App\Http\Middleware\NoQuestionsIfAnswered;
@@ -19,28 +18,35 @@ use App\Http\Controllers\RegisterUserController;
 Route::middleware('auth')->group(function () {
 
     Route::delete('/logout', action: [SessionController::class, 'destroy']);
-
     Route::get('/', [HomeController::class, 'index']);
-
     Route::get('/games', [GameController::class, 'index']);
-    Route::get('/game/create', [GameController::class, 'create'])
-        ->middleware(RedirectIfInGame::class);
-    Route::post('/game', [GameController::class, 'store']);
-    Route::get('/game/{game}', [GameController::class, 'show'])
-        ->can('access', 'game');
 
-    Route::get('/game/{game}/round/{round}', [RoundController::class, 'create'])
-        ->middleware(RedirectIfHasCategory::class);
-    Route::post('/game/{game}/round/{round}', [RoundController::class, 'store'])
-        ->middleware(RedirectIfHasCategory::class);
-    Route::get('/game/{game}/round/{round}/status', [RoundController::class, 'show'])
-        ->middleware(RedirectIfNoAnswers::class);
-    Route::post('/game/{game}/round/{round}/status', [RoundController::class, 'update'])
-        ->middleware(RedirectIfRoundComplete::class);
 
-    Route::get("/game/{game}/round/{round}/question",[QuestionController::class, 'show'])
-        ->middleware([NoQuestionsIfAnswered::class, RedirectIfGameComplete::class]);
-    Route::post('/game/{game}/round/{round}/question', [QuestionController::class, 'store']);
+    Route::prefix('game')->group(function () {
+        Route::get('/create', [GameController::class, 'create'])
+            ->middleware(RedirectIfInGame::class);
+        Route::post('/', [GameController::class, 'store']);
+        Route::get('/{game}', [GameController::class, 'show'])
+            ->can('access', 'game');
+    });
+
+    Route::prefix('game')->group(function () {
+        Route::prefix('{game}/round/{round}')->group(function () {
+            Route::middleware(RedirectIfHasCategory::class)->group(function () {
+                Route::get('/', [RoundController::class, 'create']);
+                Route::post('/', [RoundController::class, 'store']);
+            });
+            Route::get('/status', [RoundController::class, 'show'])
+                ->middleware(RedirectIfNoAnswers::class);
+            Route::post('/status', [RoundController::class, 'update'])
+                ->middleware(RedirectIfRoundComplete::class);
+            Route::get('/question', [QuestionController::class, 'show'])
+                ->middleware([NoQuestionsIfAnswered::class, RedirectIfGameComplete::class]);
+            Route::post('/question', [QuestionController::class, 'store']);
+        });
+    });
+
+
 
 });
 
