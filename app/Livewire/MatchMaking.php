@@ -12,6 +12,9 @@ use Livewire\Component;
 
 class MatchMaking extends Component
 {
+
+    public $startTime;
+
     #[Computed]
     public function userId(){
         return Auth::id();
@@ -33,6 +36,11 @@ class MatchMaking extends Component
             $query->where('player_one_id', $userId)
                 ->orWhere('player_two_id', $userId);
         })->where('status', Status::PENDING)->first();
+    }
+
+    public function mount()
+    {
+        $this->startTime = now()->timestamp;
     }
 
     public function store()
