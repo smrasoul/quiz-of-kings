@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Enums\Status;
+use Illuminate\Support\Carbon;
 use App\Models\Game;
 use App\Models\GameQueue;
 use App\Models\Round;
@@ -13,7 +14,17 @@ use Livewire\Component;
 class MatchMaking extends Component
 {
 
-    public $startTime;
+    public int $queuedAtTimestamp = 0;
+    public $matchQueue;
+
+    public function mount()
+    {
+        $this->matchQueue = GameQueue::where('user_id', Auth::id())->first();
+
+        if ($this->matchQueue) {
+            $this->queuedAtTimestamp = $this->matchQueue->created_at->timestamp;
+        }
+    }
 
     #[Computed]
     public function userId(){
@@ -36,11 +47,6 @@ class MatchMaking extends Component
             $query->where('player_one_id', $userId)
                 ->orWhere('player_two_id', $userId);
         })->where('status', Status::PENDING)->first();
-    }
-
-    public function mount()
-    {
-        $this->startTime = now()->timestamp;
     }
 
     public function store()

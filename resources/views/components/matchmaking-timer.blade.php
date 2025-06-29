@@ -2,8 +2,8 @@
 
 <div
     x-data="{
-        startTime: {{ $start }},
-        elapsed: 0,
+        start: {{ $start }},
+        elapsed: Math.floor(Date.now() / 1000) - {{ $start }},
         get formatted() {
             const mins = String(Math.floor(this.elapsed / 60)).padStart(2, '0');
             const secs = String(this.elapsed % 60).padStart(2, '0');
@@ -12,10 +12,10 @@
     }"
     x-init="
         setInterval(() => {
-            elapsed = Math.floor(Date.now() / 1000) - startTime;
-        }, 1000)
+            elapsed = Math.floor(Date.now() / 1000) - start;
+        }, 1000);
     "
-    class="mt-3 text-muted"
+    class="mt-2 text-white"
 >
-    زمان سپری‌شده: <span x-text="formatted"></span>
+    زمان سپری شده: <span x-text="formatted"></span>
 </div>

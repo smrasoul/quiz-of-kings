@@ -1,4 +1,6 @@
-<div wire:poll>
+
+
+<div>
     <x-center>
         @if($this->game)
             <div> حریف یافت شد! </div>
@@ -13,7 +15,10 @@
             <p>در حال جست‌وجو برای حریف...</p>
 
             <!-- ⏱ Timer -->
-            <x-matchmaking-timer :start="$startTime" />
+            @if($matchQueue)
+                <x-matchmaking-timer :start="$queuedAtTimestamp"/>
+            @endif
+
         @endif
     </x-center>
 </div>
