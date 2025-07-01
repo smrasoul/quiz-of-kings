@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Status;
+use App\Http\Requests\QuestionRequest;
 use App\Jobs\UpdateRoundAnswer;
 use App\Models\Game;
 use App\Models\Round;
@@ -16,12 +17,16 @@ class QuestionController extends Controller
 
         $answersCount = RoundAnswer::where('round_id', $round->id)
             ->where('user_id', Auth::id())
+            ->whereNotNull('selected_option_id')
             ->count();
+
+
 
         $question = $round->roundQuestions()
             ->where('order', $answersCount + 1)
             ->firstOrFail()
             ->question;
+
 
         $questionOptions = $question->questionOptions()->get();
 
@@ -42,14 +47,11 @@ class QuestionController extends Controller
             compact('question', 'questionOptions'));
     }
 
-    public function store(Game $game, Round $round)
+    public function store(Game $game, Round $round, QuestionRequest $request)
     {
 
         //validate the selected option
-        $selectedOptionId = request()->validate([
-            'selected_option_id' => ['required', 'integer', 'exists:question_options,id'],
-        ])['selected_option_id'];
-
+        $selectedOptionId = $request->validated()['selected_option_id'];
 
         $answersCount = RoundAnswer::where('round_id', $round->id)
             ->where('user_id', Auth::id())
