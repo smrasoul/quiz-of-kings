@@ -78,16 +78,17 @@ class DatabaseSeeder extends Seeder
         });
 
         //a new game with a new round
-//        Game::updateOrCreate(
-//            ['id' => 1],
-//            [
-//                'player_one_id' => 1,
-//                'player_two_id' => 2,
-//                'current_turn' => 1,
-//                'status' => Status::PENDING,
-//                'last_activity' => now()->timestamp
-//            ]
-//        );
+        Game::updateOrCreate(
+            ['id' => 1],
+            [
+                'player_one_id' => 1,
+                'player_two_id' => 2,
+                'current_turn' => 1,
+                'status' => Status::PENDING,
+                'last_activity' => now()->timestamp
+            ]
+        );
+
         Round::updateOrCreate(
             ['id' => 1],
             [

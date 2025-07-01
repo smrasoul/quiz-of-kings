@@ -11,9 +11,13 @@ use App\Http\Middleware\RedirectIfHasCategory;
 use App\Http\Middleware\RedirectIfInGame;
 use App\Http\Middleware\RedirectIfNoAnswers;
 use App\Http\Middleware\RedirectIfRoundComplete;
+use App\Models\RoundAnswer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterUserController;
 
+Route::get('/test', function(){
+
+});
 
 Route::middleware('auth')->group(function () {
 

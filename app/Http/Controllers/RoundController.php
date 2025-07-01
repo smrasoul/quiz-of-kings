@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Status;
+use App\Http\Requests\RoundRequest;
 use App\Models\Category;
 use App\Models\Game;
 use App\Models\Question;
@@ -53,14 +54,11 @@ class RoundController extends Controller
         return view('games.category', compact('randomCategories'));
     }
 
-    public function store(Game $game, Round $round)
+    public function store(Game $game, Round $round, RoundRequest $request)
     {
 
         //validate the selected category
-        $category_id = request()->validate([
-            'category_id' => ['required', 'integer', 'exists:categories,id']
-        ])['category_id'];
-
+        $category_id = $request->validated()['category_id'];
 
         //Check for cheating in supplying wrong category ID
         $randomCategories = RandomCategories::with('category')
@@ -83,6 +81,7 @@ class RoundController extends Controller
             ->inRandomOrder()
             ->take(3)
             ->get();
+
         //add the question to the round_questions table
         foreach ($questions as $index => $question) {
             RoundQuestion::create([
@@ -154,7 +153,7 @@ class RoundController extends Controller
             } elseif ($roundCount === 4) {
 
                 // Finalize the game
-                $scores = RoundAnswer::where('round_id', $round->id)
+                $scores = RoundAnswer::where('game_id', $game->id)
                     ->whereNotNull('is_correct')
                     ->get()
                     ->groupBy('user_id')
