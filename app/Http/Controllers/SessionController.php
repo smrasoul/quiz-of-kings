@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\SessionRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-use function PHPUnit\Framework\throwException;
 
 class SessionController extends Controller
 {
@@ -21,12 +20,9 @@ class SessionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SessionRequest $request)
     {
-        $attributes = $request->validate([
-            'email' => ['required', 'email',],
-            'password' => ['required']
-        ]);
+        $attributes = $request->validated();
 
         if(! Auth::attempt($attributes)){
             throw ValidationException::withMessages([
