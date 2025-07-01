@@ -153,7 +153,7 @@ class RoundController extends Controller
             } elseif ($roundCount === 4) {
 
                 // Finalize the game
-                $scores = RoundAnswer::where('round_id', $round->id)
+                $scores = RoundAnswer::where('game_id', $game->id)
                     ->whereNotNull('is_correct')
                     ->get()
                     ->groupBy('user_id')

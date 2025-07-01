@@ -11,9 +11,29 @@ use App\Http\Middleware\RedirectIfHasCategory;
 use App\Http\Middleware\RedirectIfInGame;
 use App\Http\Middleware\RedirectIfNoAnswers;
 use App\Http\Middleware\RedirectIfRoundComplete;
+use App\Models\RoundAnswer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterUserController;
 
+Route::get('/test', function(){
+
+    // Finalize the game
+    $scores = RoundAnswer::where('game_id', 1)
+        ->whereNotNull('is_correct')
+        ->get()
+        ->groupBy('user_id')
+        ->map(fn($answers) => $answers->where('is_correct', true)->count())
+        ->all();
+
+    arsort($scores);
+    $ids = array_keys($scores);
+    $values = array_values($scores);
+
+    $winnerId = $values[0] === $values[1] ? 0 : $ids[0];
+
+    dump($winnerId);
+
+});
 
 Route::middleware('auth')->group(function () {
 
