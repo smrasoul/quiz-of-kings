@@ -1,61 +1,89 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Quiz of Kings Remake
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A web-based recreation of the popular Iranian trivia game "Quiz of Kings" – an exciting online competition where players test their knowledge across various topics. This project is built as an early personal endeavor using modern web technologies to deliver a fun, interactive trivia experience.
 
-## About Laravel
+[![Laravel](https://img.shields.io/badge/Laravel-12.x-red.svg?style=flat-square&logo=laravel)](https://laravel.com)
+[![Livewire](https://img.shields.io/badge/Livewire-3.x-blue.svg?style=flat-square)](https://livewire.laravel.com)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.x-purple.svg?style=flat-square&logo=bootstrap)](https://getbootstrap.com)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📖 Description
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+"Quiz of Kings" is originally a mobile trivia game beloved in Iran, featuring over 1,000,000 questions on topics like general knowledge, sports, cinema, music, math, religion, and more. It supports competitive gameplay for two players, with 6 rounds (each player chooses 3 topics), chat features, friend-making, and group competitions.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+This remake brings the essence of the game to the web:
+- **Competitive Trivia**: Challenge friends or random opponents in knowledge-based duels.
+- **Diverse Questions**: Text and image-based questions across multiple categories.
+- **Social Elements**: User profiles, real-time interactions, and potential for group play.
+- **Responsive Design**: Seamless experience on desktop and mobile thanks to Bootstrap.
 
-## Learning Laravel
+This is an early project, so it focuses on core functionality like user authentication, question management, and basic gameplay. Future enhancements could include advanced scoring, leaderboards, and multiplayer lobbies.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## ✨ Features
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **User Authentication**: Register, login, and manage profiles.
+- **Trivia Gameplay**: Select topics, answer questions, and compete in rounds.
+- **Question Database**: Administer and categorize questions (text/image-based).
+- **Real-Time Updates**: Powered by Livewire for dynamic, AJAX-like interactions without full page reloads.
+- **Responsive UI**: Clean, modern interface styled with Bootstrap.
+- **Docker Support**: Easy setup for development and deployment.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🛠️ Technologies Used
 
-## Laravel Sponsors
+- **Backend**: Laravel (PHP framework for routing, models, controllers, and database management).
+- **Frontend**: Bootstrap (CSS framework for styling) + Livewire (for reactive components).
+- **Asset Management**: Vite (modern frontend build tool).
+- **Database**: MySQL (via Laravel migrations and seeders).
+- **Other Tools**: Composer for PHP dependencies, NPM for JS packages, Docker for containerization.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 📸 Screenshots
 
-### Premium Partners
+<!-- Add screenshots here if available, e.g.: -->
+<!-- ![Login Screen](screenshots/login.png) -->
+<!-- ![Gameplay](screenshots/gameplay.png) -->
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## 🚀 Installation
 
-## Contributing
+### Prerequisites
+- PHP >= 8.1
+- Composer
+- Node.js & NPM
+- MySQL (or another database supported by Laravel)
+- Git
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Steps Using Docker (Recommended)
 
-## Code of Conduct
+1. Ensure Docker and Docker Compose are installed.
+2. Build and start containers:
+   ```
+   docker-compose up -d
+   ```
+3. Access the app at `http://localhost:8080` (or the configured port).
+4. Run migrations inside the container:
+   ```
+   docker-compose exec app php artisan migrate --seed
+   ```
+   
+## 🔧 Usage
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1. **Register/Login**: Create an account to start playing.
+2. **Start a Quiz**: Choose an opponent (or play solo), select topics, and answer questions in rounds.
+3. **Admin Features** (if implemented): Add/edit questions via the admin panel.
+4. **Customize**: Explore the code in `app/Models` for data structures, `app/Http/Controllers` for logic, `resources/views` for Blade templates, and `routes/web.php` for endpoints.
 
-## Security Vulnerabilities
+For development, use `npm run dev` for live asset rebuilding with Vite.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 🤝 Contributing
 
-## License
+Contributions are welcome! This is an early project, so feel free to:
+- Report issues or suggest features via GitHub Issues.
+- Fork the repo, make changes, and submit a Pull Request.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Please follow Laravel's coding standards and add tests where possible.
+
+## 📄 License
+
+This project is open-source. Feel free to use, modify, and distribute.
+
+---
+
+Built with ❤️ by [smrasoul](https://github.com/smrasoul). Inspired by the original Quiz of Kings game. If you enjoy it, star the repo! ⭐
